@@ -17,7 +17,15 @@ defmodule Traefik.Handler do
   end
 
   def route(conn) do
+    route(conn, conn.method, conn.path)
+  end
+
+  def route(conn, "GET", "/hello") do
     %{conn | response: "Hello world"}
+  end
+
+  def route(conn, "GET", "/world") do
+    %{conn | response: "Hello MD and all devs"}
   end
 
   def format_response(conn) do
@@ -33,7 +41,7 @@ defmodule Traefik.Handler do
   end
 end
 
-request = """
+request_1 = """
 GET /hello HTTP/1.1
 Accept: */*
 Connection: keep-alive
@@ -41,11 +49,13 @@ User-Agent: telnet
 
 """
 
-_response = """
-HTTP/1.1 200 OK
-Host: some.com
-Content-Length: 219
-Content-Type: text/html; charset=UTF-8
+request_2 = """
+GET /world HTTP/1.1
+Accept: */*
+Connection: keep-alive
+User-Agent: telnet
+
 """
 
-IO.puts(Traefik.Handler.handle(request))
+IO.puts(Traefik.Handler.handle(request_1))
+IO.puts(Traefik.Handler.handle(request_2))
