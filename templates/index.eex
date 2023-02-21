@@ -1,0 +1,5 @@
+<ul>
+  <%= for dev <- developers do %>
+    <li><%= dev.id %> - <%= dev.fisrst_name %> <% dev.last_name %></li>
+  <% end %>
+</ul>
