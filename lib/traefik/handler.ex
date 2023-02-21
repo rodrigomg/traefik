@@ -35,6 +35,14 @@ defmodule Traefik.Handler do
     %{conn | status: 200, response: "All developers greetings!!"}
   end
 
+  def route(%Conn{method: "GET", path: "/developer/" <> id} = conn) do
+    DeveloperController.show(conn, %{"id" => id})
+  end
+
+  def route(%Conn{method: "GET", path: "/developer"} = conn) do
+    DeveloperController.index(conn)
+  end
+
   def route(%Conn{method: "POST", path: "/new", params: params} = conn) do
     %{
       conn
