@@ -1,1 +1,1 @@
-<%= developer.id %> - <%= developer.fisrst_name %> - <%= developer.last_name %> - <%= developer.email %> - <%= developer.ip_address %>
+<%= developer.id %> - <%= developer.first_name %> - <%= developer.last_name %> - <%= developer.email %> - <%= developer.ip_address %>
