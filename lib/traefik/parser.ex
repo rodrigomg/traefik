@@ -13,7 +13,6 @@ defmodule Traefik.Parser do
     params = parse_params(headers["Content-Type"], params_string)
 
     %Conn{method: method, path: path, params: params, headers: headers}
-    |> IO.inspect()
   end
 
   def parse_headers([head | tail], headers) do
