@@ -31,16 +31,16 @@ defmodule Traefik.Handler do
     %{conn | status: 200, response: "Hello MD and all devs"}
   end
 
-  def route(%Conn{method: "GET", path: "/all"} = conn) do
-    %{conn | status: 200, response: "All developers greetings!!"}
-  end
-
   def route(%Conn{method: "GET", path: "/developer/" <> id} = conn) do
     DeveloperController.show(conn, %{"id" => id})
   end
 
   def route(%Conn{method: "GET", path: "/developer"} = conn) do
     DeveloperController.index(conn)
+  end
+
+  def route(%Conn{method: "GET", path: "/api/developer"} = conn) do
+    Traefik.Api.DeveloperController.index(conn)
   end
 
   def route(%Conn{method: "POST", path: "/new", params: params} = conn) do
@@ -87,6 +87,7 @@ defmodule Traefik.Handler do
     HTTP/1.1 #{Conn.status(conn)}
     Host: some.com
     User-Agent: telnet
+    Content-Type: #{conn.content_type}
     Content-Lenght: #{String.length(conn.response)}
     Accept: */*
 
@@ -167,19 +168,3 @@ Content-Type: application/x-www-form-urlencoded
 User-Agent: telnet
 
 """
-
-IO.puts(Traefik.Handler.handle(request_1))
-IO.puts("-------------------------------")
-IO.puts(Traefik.Handler.handle(request_2))
-IO.puts("-------------------------------")
-IO.puts(Traefik.Handler.handle(request_3))
-IO.puts("-------------------------------")
-IO.puts(Traefik.Handler.handle(request_4))
-IO.puts("-------------------------------")
-IO.puts(Traefik.Handler.handle(request_5))
-IO.puts("-------------------------------")
-IO.puts(Traefik.Handler.handle(request_6))
-IO.puts("-------------------------------")
-IO.puts(Traefik.Handler.handle(request_7))
-IO.puts("-------------------------------")
-IO.puts(Traefik.Handler.handle(request_8))
